@@ -5,17 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Oculta</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const auth = JSON.parse(localStorage.getItem("userAuth"));
-            if (!auth || !auth.loggedIn) {
+    
+    <!-- Firebase SDK (Módulos) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAVUXzVk-cZUrm3xxKz8HuK7KGmXf3CNxU",
+            authDomain: "biblioteca-oculta-ca5c6.firebaseapp.com",
+            projectId: "biblioteca-oculta-ca5c6",
+            storageBucket: "biblioteca-oculta-ca5c6.appspot.com",
+            messagingSenderId: "287494503696",
+            appId: "1:287494503696:web:14b91e4374e781c0ae7995",
+            measurementId: "G-15SBV93DXM"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        onAuthStateChanged(auth, user => {
+            if (!user) {
                 window.location.href = "login.html";
             }
         });
+
+        function userLogout() {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        }
     </script>
-    
+    <script src="firebase_login.js" type="module" defer></script>
+</head>
+<body>
     <header>
         <h1>🔮 Biblioteca Oculta 🔮</h1>
         <p id="ostara-message">🌸🌿✨ Feliz Ostara! 🌸🌿✨</p>
@@ -26,12 +51,5 @@
     <main>
         <div id="pdf-list"></div>
     </main>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    
-    <script src="firebase_login.js"></script>
 </body>
 </html>
