@@ -1,76 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-<!-- Arquivo de login -->
-<script src="firebase_login.js"></script>
-
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Oculta</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const auth = JSON.parse(localStorage.getItem("userAuth"));
-        if (!auth || !auth.loggedIn) {
-            window.location.href = "login.html";
-        }
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const auth = JSON.parse(localStorage.getItem("userAuth"));
-        if (!auth || !auth.loggedIn) {
-            window.location.href = "login.html";
-        }
-    });
-</script>
-
 <body>
-
     <script>
-        if (localStorage.getItem("userAuth") !== "true") {
-            window.location.href = "login.html";
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const auth = JSON.parse(localStorage.getItem("userAuth"));
+            if (!auth || !auth.loggedIn) {
+                window.location.href = "login.html";
+            }
+        });
     </script>
     
     <header>
         <h1>🔮 Biblioteca Oculta 🔮</h1>
         <p id="ostara-message">🌸🌿✨ Feliz Ostara! 🌸🌿✨</p>
         <button onclick="window.location.href='variados.html'">📚 Sessão de Variados 🎓</button>
-
-        <input type="text" id="search" placeholder="Buscar um livro...">
-        <button onclick="logout()">Sair</button>
+        <button onclick="userLogout()">Sair</button>
     </header>
-
+    
     <main>
-        <div id="pdf-list">
-            <div id="div1">
-                <div id="l">
-                    <div class="pupil"></div>
-                    <div class="pupl2"></div>
-                    <div class="pupil3"></div>
-                    <div class="pupil4"></div>
-                    <div class="p5"></div>
-                </div>
-                <div id="m">
-                    <div class="pupil"></div>
-                    <div class="pupl2"></div>
-                    <div class="pupil3"></div>
-                    <div class="pupil4"></div>
-                    <div class="p5"></div>
-                </div>
-            </div>
-        </div>
+        <div id="pdf-list"></div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    
+    <script src="firebase_login.js"></script>
 </body>
 </html>

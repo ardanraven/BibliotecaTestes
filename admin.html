@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-<!-- Arquivo de login -->
-<script src="firebase_login.js"></script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,22 +8,27 @@
 </head>
 <body>
     <header>
-        <h1>🛠️ Painel Administrativo 🛠️</h1>
-        <button onclick="adminLogout()">🚪 Sair</button>
+        <h1>🛠️ Painel Administrativo</h1>
+        <button onclick="userLogout()">Sair</button>
     </header>
-    
+
     <div class="login-container">
-        <h2>👤 Criar Novo Usuário</h2>
-        <input type="text" id="new-user" placeholder="🧙 Novo Usuário">
-        <input type="password" id="new-pass" placeholder="🔒 Senha">
+        <h2>Criar Novo Usuário</h2>
+        <input type="text" id="new-user" placeholder="Novo Usuário">
+        <input type="password" id="new-pass" placeholder="Senha">
         <select id="validity">
             <option value="1">1 mês</option>
             <option value="2">2 meses</option>
             <option value="3">3 meses</option>
         </select>
-        <button onclick="createUser()">✨ Criar Conta</button>
+        <button onclick="createUser()">Criar Conta</button>
     </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     
-    <script src="login.js"></script>
+    <script src="firebase_login.js"></script>
 </body>
 </html>
