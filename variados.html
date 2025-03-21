@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+<!-- Arquivo de login -->
+<script src="firebase_login.js"></script>
+
+<head>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros Variados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🔮 Biblioteca Oculta 🔮</h1>
+        <p id="ostara-message">🌸🌿✨ Feliz Ostara! 🌸🌿✨</p>
+        <button onclick="window.location.href='index.html'">🎴 Sessão Ocultismo 🕯️</button>
+
+        <input type="text" id="search" placeholder="Buscar um livro...">
+        <button onclick="logout()">Sair</button>
+    </header>
+    
+    
+    <div id="pdf-list"></div>
+        
+    
+    <script>
+        const scriptUrlVariados = "https://script.google.com/macros/s/AKfycbyta87I-xp_BTLtpt7jZl29xR9t2GLsDvVDZfSY_Muqa7WB3d3-9nwFClcQntAeKrqxcQ/exec"; // Troque pelo link correto
+
+        let pdfData = [];
+
+        async function getPdfList() {
+            try {
+                document.getElementById("pdf-list").innerHTML = "<p>Carregando...</p>";
+                let response = await fetch(scriptUrlVariados);
+                pdfData = await response.json();
+                
+                if (pdfData.length === 0) {
+                    document.getElementById("pdf-list").innerHTML = "<p>Nenhum livro encontrado.</p>";
+                } else {
+                    displayPdfList(pdfData);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar arquivos:", error);
+                document.getElementById("pdf-list").innerHTML = "<p>Erro ao carregar livros.</p>";
+            }
+        }
+
+        function displayPdfList(data) {
+            let pdfList = document.getElementById("pdf-list");
+            pdfList.innerHTML = "";
+
+            data.forEach(file => {
+                let pdfItem = document.createElement("div");
+                pdfItem.classList.add("pdf-item");
+
+                pdfItem.innerHTML = `
+                    <img src="${file.thumbnail}" alt="Capa de ${file.name}" class="pdf-thumbnail">
+                    <p>${file.name}</p>
+                    <a href="${file.url}" target="_blank">📖 Visualizar</a>
+                `;
+
+                pdfList.appendChild(pdfItem);
+            });
+        }
+
+        document.getElementById("search").addEventListener("input", function() {
+            let searchTerm = this.value.toLowerCase();
+            let filteredData = pdfData.filter(file => file.name.toLowerCase().includes(searchTerm));
+            displayPdfList(filteredData);
+        });
+
+        function logout() {
+            localStorage.removeItem("auth");
+            window.location.href = "login.html";
+        }
+
+        getPdfList();
+
+
+    </script>
+</body>
+</html>
